@@ -1,0 +1,18 @@
+{
+    "name": "usuario/lucas",
+    "description": "we2",
+    "type": "project",
+    "license": "private",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/",
+            "Model\\": "src/model"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lucas Ortlieb"
+        }
+    ],
+    "require": {}
+}
