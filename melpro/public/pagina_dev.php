@@ -1,14 +1,48 @@
 <?php
     if(isset($_POST['email']) ) {
-        $email = $_POST['email'];
+        $emailLog = $_POST['email'];
     } else {
-        $email = null;
+        $emailLog = null;
     }
     if(isset($_POST['senha']) ) {
-        $senha = $_POST['senha'];
+        $senhaLog = $_POST['senha'];
     } else {
-        $senha = null;
+        $senhaLog = null;
     }
+
+    $servidor = "localhost";
+    $usuario = "root";
+    $senha = "";
+    $dbname = "cadastro";
+    $port = "3307";
+
+
+    //criar conexão
+    $conn = mysqli_connect($servidor, $usuario, $senha, $dbname, $port);
+
+    /* check connection */
+    if (mysqli_connect_errno()) {
+        printf("Connect failed: %s\n", mysqli_connect_error());
+        exit();
+    }
+
+//var_dump($conn);
+$sql = "SELECT * FROM cadastrodev WHERE email = '$emailLog'; ";
+
+$resultDb = mysqli_query($conn, $sql);
+
+//var_dump($resultDb);
+
+$row = $resultDb->fetch_assoc(); //Associando dados da pesquisa com a variável $row
+$emailDb = $row['email'];
+$senhaDb = $row['senha'];
+
+if($emailLog == $emailDb && $senhaLog == $senhaDb) {
+    session_start();
+    $_SESSION['user'] = $row['nome'];
+} else {
+    header('location: ../index.php');
+}
 
 require_once "../src/views/header.php";
 require_once "../src/views/header_nav2.php";
